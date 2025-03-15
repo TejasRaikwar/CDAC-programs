@@ -1,19 +1,21 @@
-#include"employee.h"
+#include "employee.h"
 
-
-int main(){
+int main()
+{
    int n;
-   cout<<"Enter the  number of Employees : ";
-   
+   cout << "Enter the  number of Employees : ";
+   cin>>n;
    Employee *e = new Employee[n];
 
-   for(int i =0; i<n ; i++)
+   for (int i = 0; i < n; i++)
    {
-	   cout<<"Enter details : "<<endl;
-	   e[i].Accept();
+      e[i].Accept();
    }
-   sortEmp(e, e+n, Employee::sortEmp);
+   sort(e, e + n, Employee::sortEmp);
+   for (int i = 0; i < n; i++)
+   {
+      e[i].Display();
+   }
 
-   return 0 ;
+   return 0;
 }
-

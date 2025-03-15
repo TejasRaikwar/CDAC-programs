@@ -1,6 +1,7 @@
 #include "Employee.h"
 
-void Employee::Accept() {
+void Employee::Accept()
+{
     cout << "Please enter empNo:->";
     cin >> empNo;
     cout << "Please enter employee name:->";
@@ -11,34 +12,37 @@ void Employee::Accept() {
     cin >> dept;
 }
 
- 
-void Employee::Display() {
+void Employee::Display()
+{
     cout << "Employee empNo:->" << empNo << endl;
     cout << "Employee name:->" << name << endl;
     cout << "Employee salary:->" << salary << endl;
     cout << "Employee dept:->" << dept << endl;
 }
 
- 
-string Employee::getEmpNo() const {
+string Employee::getEmpNo() const
+{
     return empNo;
 }
 
- 
-string Employee::getName() const {
+string Employee::getName() const
+{
     return name;
 }
 
- 
-double Employee::getSalary() const {
+double Employee::getSalary() const
+{
     return salary;
 }
 
- 
-bool Employee::compare(const Employee &e1, const Employee &e2) {
-    if (e1.getEmpNo() != e2.getEmpNo()) {
+bool Employee::compare(const Employee &e1, const Employee &e2)
+{
+    if (e1.getEmpNo() != e2.getEmpNo())
+    {
         return e1.getEmpNo() < e2.getEmpNo();
-    } else if (e1.getName() != e2.getName()) {
+    }
+    else if (e1.getName() != e2.getName())
+    {
         return e1.getName() < e2.getName();
     }
     return e1.getSalary() < e2.getSalary();

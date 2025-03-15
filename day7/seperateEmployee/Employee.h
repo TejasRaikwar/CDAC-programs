@@ -1,11 +1,12 @@
- 
+
 
 #include <iostream>
 #include <string>
-#include <algorithm> 
+#include <algorithm>
 using namespace std;
 
-class Employee {
+class Employee
+{
 private:
     string empNo;
     string name;
@@ -13,18 +14,10 @@ private:
     string dept;
 
 public:
-     
     void Accept();
-
-    
     void Display();
-
-    
     string getEmpNo() const;
     string getName() const;
     double getSalary() const;
-
-     
     static bool compare(const Employee &e1, const Employee &e2);
 };
-

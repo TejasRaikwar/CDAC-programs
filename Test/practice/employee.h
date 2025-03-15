@@ -1,18 +1,19 @@
-#include<iostream>
-#include<string.h>
-
-
+#include <bits/stdc++.h>
+#include <string.h>
 using namespace std;
 
-class Employee{
+class Employee
+{
+private:
    int empId;
    string name;
    double salary;
 
-	public :
+public:
+   int getEmpId() const;
+   string getName() const;
+   double getSalary() const;
    void Accept();
    void Display();
-   static bool sortEmp(const employee &e1,const employee &e2);
-    
-
+   static bool sortEmp(const Employee &e1, const Employee &e2);
 };
