@@ -1,0 +1,292 @@
+Assignment – 4
+--------------------------------------------------------------------------------------------------------------------------------------
+1. Display tid,custid,customer name and buy_price.
+-->
+mysql> select
+    -> cv.id as tid,
+    -> c.cname,
+    -> cv.buyprice
+    -> from cust_vehicle cv
+    -> join customer c on cv.custid = c.custid;
++-----+--------+----------+
+| tid | cname  | buyprice |
++-----+--------+----------+
+|   1 | Nilima |    75000 |
+|   5 | Nilima |   800000 |
+|   2 | Ganesh |    79000 |
+|   3 | Kishor |    80000 |
+|   4 | Priya  |    75000 |
++-----+--------+----------+
+
+2.Dispaly tid,custid,customer name,vid,vehicle name, sid, salesmen name and buy_price for vehicle.
+-->
+mysql> SELECT
+    ->     cv.id AS tid,
+    ->     c.custid,
+    ->     c.cname AS customer_name,
+    ->     v.vid,
+    ->     v.vname AS vehicle_name,
+    ->     s.sid,
+    ->     s.sname AS salesman_name,
+    ->     cv.buyPrice
+    -> FROM cust_vehicle cv
+    -> JOIN customer c ON cv.custid = c.custid
+    -> JOIN vehicle v ON cv.vid = v.vid
+    -> JOIN salesman s ON cv.sid = s.sid;
++-----+--------+---------------+-----+---------------+-----+---------------+----------+
+| tid | custid | customer_name | vid | vehicle_name  | sid | salesman_name | buyPrice |
++-----+--------+---------------+-----+---------------+-----+---------------+----------+
+|   1 |      1 | Nilima        |   6 | Hero Splendor |   2 | Seema         |    75000 |
+|   5 |      1 | Nilima        |   4 | i-10          |   2 | Seema         |   800000 |
+|   2 |      2 | Ganesh        |   1 | Activa        |   3 | Shailesh      |    79000 |
+|   3 |      3 | Kishor        |   2 | Santro        |   1 | Rajesh        |    80000 |
+|   4 |      4 | Priya         |   6 | Hero Splendor |   4 | Rakhi         |    75000 |
++-----+--------+---------------+-----+---------------+-----+---------------+----------+
+
+Consider emp, dept and salgrade tables to answer following queries.
+1.List details of employees as ename,deptno,dname,sal,comm. 
+-->
+mysql> SELECT
+    ->     e.ename,
+    ->     e.deptno,
+    ->     d.dname,
+    ->     e.sal,
+    ->     e.comm
+    -> FROM emp e
+    -> JOIN dept d ON e.deptno = d.deptno;
++--------+--------+------------+---------+---------+
+| ename  | deptno | dname      | sal     | comm    |
++--------+--------+------------+---------+---------+
+| SMITH  |     20 | RESEARCH   |  800.00 |    NULL |
+| ALLEN  |     30 | SALES      | 1600.00 |  300.00 |
+| WARD   |     30 | SALES      | 1250.00 |  500.00 |
+| JONES  |     20 | RESEARCH   | 2975.00 |    NULL |
+| MARTIN |     30 | SALES      | 1250.00 | 1400.00 |
+| BLAKE  |     30 | SALES      | 2850.00 |    NULL |
+| CLARK  |     10 | ACCOUNTING | 2450.00 |    NULL |
+| SCOTT  |     20 | RESEARCH   | 3000.00 |    NULL |
+| KING   |     10 | ACCOUNTING | 5000.00 |    NULL |
+| TURNER |     30 | SALES      | 1500.00 |    0.00 |
+| ADAMS  |     20 | RESEARCH   | 1100.00 |    NULL |
+| JAMES  |     30 | SALES      |  950.00 |    NULL |
+| FORD   |     20 | RESEARCH   | 3000.00 |    NULL |
+| MILLER |     10 | ACCOUNTING | 1300.00 |    NULL |
++--------+--------+------------+---------+---------+
+
+2. Display details of employees as empno,ename,sal,job, deptno and dept name for all employees working as a clerk or salesman and earning  more than 2000 .
+-->
+mysql> SELECT
+    ->     e.empno,
+    ->     e.ename,
+    ->     e.sal,
+    ->     e.job,
+    ->     e.deptno,
+    ->     d.dname
+    -> FROM emp e
+    -> JOIN dept d ON e.deptno = d.deptno
+    -> WHERE e.job IN ('CLERK', 'SALESMAN')
+    -> AND e.sal > 2000;
+
+3. List details of employees as ename,deptno,dname,sal,comm working in dept 20 and 30 who did not get any commission.
+-->
+mysql> SELECT
+    ->     e.ename,
+    ->     e.deptno,
+    ->     d.dname,
+    ->     e.sal,
+    ->     e.comm
+    -> FROM emp e
+    -> JOIN dept d ON e.deptno = d.deptno
+    -> WHERE e.deptno IN (20, 30)
+    -> AND (e.comm IS NULL OR e.comm = 0);
++--------+--------+----------+---------+------+
+| ename  | deptno | dname    | sal     | comm |
++--------+--------+----------+---------+------+
+| FORD   |     20 | RESEARCH | 3000.00 | NULL |
+| ADAMS  |     20 | RESEARCH | 1100.00 | NULL |
+| SCOTT  |     20 | RESEARCH | 3000.00 | NULL |
+| JONES  |     20 | RESEARCH | 2975.00 | NULL |
+| SMITH  |     20 | RESEARCH |  800.00 | NULL |
+| JAMES  |     30 | SALES    |  950.00 | NULL |
+| TURNER |     30 | SALES    | 1500.00 | 0.00 |
+| BLAKE  |     30 | SALES    | 2850.00 | NULL |
++--------+--------+----------+---------+------+
+
+4. Display ename,sal and grade of employee(use salgrade table). 
+-->
+mysql> SELECT
+    ->     e.ename,
+    ->     e.sal,
+    ->     s.grade
+    -> FROM emp e
+    -> JOIN salgrade s
+    -> ON e.sal BETWEEN s.losal AND s.hisal;
++--------+---------+-------+
+| ename  | sal     | grade |
++--------+---------+-------+
+| SMITH  |  800.00 |     1 |
+| ALLEN  | 1600.00 |     3 |
+| WARD   | 1250.00 |     2 |
+| JONES  | 2975.00 |     4 |
+| MARTIN | 1250.00 |     2 |
+| BLAKE  | 2850.00 |     4 |
+| CLARK  | 2450.00 |     4 |
+| SCOTT  | 3000.00 |     4 |
+| KING   | 5000.00 |     5 |
+| TURNER | 1500.00 |     3 |
+| ADAMS  | 1100.00 |     1 |
+| JAMES  |  950.00 |     1 |
+| FORD   | 3000.00 |     4 |
+| MILLER | 1300.00 |     2 |
++--------+---------+-------+
+
+5. Display the information of department i.e deptno, dname and loc in which clerks are working.
+-->
+mysql> SELECT DISTINCT
+    ->     d.deptno,
+    ->     d.dname,
+    ->     d.loc
+    -> FROM emp e
+    -> JOIN dept d ON e.deptno = d.deptno
+    -> WHERE e.job = 'CLERK';
++--------+------------+----------+
+| deptno | dname      | loc      |
++--------+------------+----------+
+|     10 | ACCOUNTING | NEW YORK |
+|     20 | RESEARCH   | DALLAS   |
+|     30 | SALES      | CHICAGO  |
++--------+------------+----------+
+
+6. Try out all set operators as per the demo
+-->
+1)UNION
+mysql> SELECT ename, job FROM emp
+    -> UNION
+    -> SELECT sname, 'SALESMAN' FROM salesman;
++----------+-----------+
+| ename    | job       |
++----------+-----------+
+| SMITH    | CLERK     |
+| ALLEN    | SALESMAN  |
+| WARD     | SALESMAN  |
+| JONES    | MANAGER   |
+| MARTIN   | SALESMAN  |
+| BLAKE    | MANAGER   |
+| CLARK    | MANAGER   |
+| SCOTT    | ANALYST   |
+| KING     | PRESIDENT |
+| TURNER   | SALESMAN  |
+| ADAMS    | CLERK     |
+| JAMES    | CLERK     |
+| FORD     | ANALYST   |
+| MILLER   | CLERK     |
+| Rajesh   | SALESMAN  |
+| Seema    | SALESMAN  |
+| Shailesh | SALESMAN  |
+| Rakhi    | SALESMAN  |
++----------+-----------+
+
+2)UNION ALL
+mysql> SELECT ename, job FROM emp
+    -> UNION ALL
+    -> SELECT sname, 'SALESMAN' FROM salesman;
++----------+-----------+
+| ename    | job       |
++----------+-----------+
+| SMITH    | CLERK     |
+| ALLEN    | SALESMAN  |
+| WARD     | SALESMAN  |
+| JONES    | MANAGER   |
+| MARTIN   | SALESMAN  |
+| BLAKE    | MANAGER   |
+| CLARK    | MANAGER   |
+| SCOTT    | ANALYST   |
+| KING     | PRESIDENT |
+| TURNER   | SALESMAN  |
+| ADAMS    | CLERK     |
+| JAMES    | CLERK     |
+| FORD     | ANALYST   |
+| MILLER   | CLERK     |
+| Rajesh   | SALESMAN  |
+| Seema    | SALESMAN  |
+| Shailesh | SALESMAN  |
+| Rakhi    | SALESMAN  |
++----------+-----------+
+
+3)INTERSECT
+SELECT ename FROM emp
+INTERSECT
+SELECT sname FROM salesman;
+
+4)MINUS
+mysql> SELECT ename FROM emp
+    -> MINUS
+    -> SELECT sname FROM salesman;
+
+7. Try out on delete set null/ cascade
+    On update set null/cascade
+-->
+1)DELETE FROM customer WHERE custid = 1;
+2)ON DELETE CASCADE
+	DELETE FROM customer WHERE custid = 1;
+3)ON UPDATE SET NULL
+	UPDATE customer SET custid = 10 WHERE custid = 1;
+4)ON UPDATE CASCADE
+	UPDATE customer SET custid = 10 WHERE custid = 1;	
+8. Try all the constraints
+-->
+1.PRIMARY KEY
+CREATE TABLE department (
+    deptno INT PRIMARY KEY,
+    dname VARCHAR(50),
+    location VARCHAR(50)
+);
+
+2.FOREIGN KEY
+CREATE TABLE employee (
+    empno INT PRIMARY KEY,
+    ename VARCHAR(50) NOT NULL,
+    deptno INT,
+    FOREIGN KEY (deptno) REFERENCES department(deptno) ON DELETE CASCADE
+);
+
+3.NOT NULL
+CREATE TABLE trainer (
+    tid INT PRIMARY KEY,
+    tname VARCHAR(50) NOT NULL
+);
+
+4.UNIQUE
+CREATE TABLE course (
+    cid INT PRIMARY KEY,
+    cname VARCHAR(50) UNIQUE NOT NULL
+);
+
+5.CHECK
+CREATE TABLE employee_salary (
+    empno INT PRIMARY KEY,
+    salary INT CHECK (salary >= 10000)
+);
+
+6.DEFAULT
+CREATE TABLE employee_bonus (
+    empno INT PRIMARY KEY,
+    bonus INT DEFAULT 5000
+);
+
+7.ON DELETE CASCADE / SET NULL
+CREATE TABLE cust_vehicle (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    custid INT,
+    vid INT,
+    FOREIGN KEY (custid) REFERENCES customer(custid) ON DELETE SET NULL,
+    FOREIGN KEY (vid) REFERENCES vehicle(vid) ON DELETE CASCADE
+);
+
+8.ON UPDATE CASCADE / SET NULL
+CREATE TABLE order_table (
+    order_id INT PRIMARY KEY,
+    custid INT,
+    FOREIGN KEY (custid) REFERENCES customer(custid) ON UPDATE CASCADE
+);
+
