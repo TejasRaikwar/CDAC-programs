@@ -315,6 +315,47 @@ mysql> select *, total_salary(sal,comm) as "T_SAl" from emp;
 2.Write a function to generate an email. Call the function in select clause.email is generated as follows
 ​​​​​ first 2 letters of name + last 2 letters of job @knowit.com. Call the function in the select clause.
 -->
+mysql>  create function generate_email(
+    ->     emp_name varchar(50),
+    ->      emp_job varchar(50)
+    -> )
+    -> returns varchar(100)
+    -> deterministic
+    -> begin
+    -> declare email varchar(50);
+    -> set @name_part = ifnull(substring(lower(emp_name),1,2),'xx');
+    -> set @job_part = ifnull(substring(lower(emp_job),greatest(1,length(emp_job)-1),2),'xx');
+    -> set email = concat(@name_part,@job_part,'@knowit.com');
+    -> return email;
+    -> end //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select *,generate_email(ename,job) as "Email" from emp //
++-------+--------+-----------+------+------------+---------+---------+--------+-----------------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO | Email           |
++-------+--------+-----------+------+------------+---------+---------+--------+-----------------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800.00 |    NULL |     20 | smrk@knowit.com |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 | alan@knowit.com |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 | waan@knowit.com |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 | joer@knowit.com |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 | maan@knowit.com |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 | bler@knowit.com |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 | cler@knowit.com |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 |    NULL |     20 | scst@knowit.com |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 | kint@knowit.com |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 | tuan@knowit.com |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100.00 |    NULL |     20 | adrk@knowit.com |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 | jark@knowit.com |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 | fost@knowit.com |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 | mirk@knowit.com |
+|  1111 | Geeta  | NULL      | NULL | NULL       |   20.00 |  300.00 |  10000 | gexx@knowit.com |
+|  2222 | Raj    | Analyst   | NULL | NULL       |    NULL |    NULL |     40 | rast@knowit.com |
+|  2222 | Raj    | Analyst   | NULL | NULL       |    NULL |    NULL |     20 | rast@knowit.com |
+|    11 | raja   | NULL      | NULL | NULL       |    NULL |    NULL |     50 | raxx@knowit.com |
++-------+--------+-----------+------+------------+---------+---------+--------+-----------------+
+18 rows in set (0.00 sec)
+
+
 
 3.Write a procedure which accepts job as a 'in' parameter, and display maximunm salary for that job.
 Write a function cal_sal() which calculates maximum salary for the job.
