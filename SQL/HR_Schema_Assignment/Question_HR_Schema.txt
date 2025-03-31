@@ -652,6 +652,15 @@ Objective: Create a stored procedure that returns the count of employees in a sp
 Input: p_department_id IN NUMBER
 Output: Count of employees in that department.
 Business Logic: The procedure should count the employees in the specified department and return the result.
+-->
+delimiter //
+create procedure countByDept(in deptId int)
+begin 
+select count(employee_id) as "Count" from employees where
+department_id = deptId;
+end //
+delimiter ;
+
 
 
 4. Employee Job Title and Salary Information
@@ -659,7 +668,20 @@ Objective: Create a stored procedure that retrieves employees' job titles and sa
 Input: p_job_id IN VARCHAR2
 Output: List of employees with job title and salary.
 Business Logic: The procedure should return the employee ID, first name, last name, and salary for employees with the specified job title.
-
+-->
+delimiter //
+drop procedure if exists retriveEmpFromJobTitle;
+create procedure retriveEmpFromJobTitle(in p_job_id varchar(50))
+begin 
+select 
+     e.employee_id as "ID",
+     e.first_name as "first name",
+     e.last_name as "last name",
+     e.salary
+from employees e
+join jobs j on j.job_id = (select job_id from jobs where job_title = p_job_id);
+end //
+delimiter ;
 
 5. Promote Employee
 Objective: Create a stored procedure to promote an employee by changing their job title and salary.
