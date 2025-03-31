@@ -1,0 +1,720 @@
+
+1.	Because of budget issues, the HR department needs a report that displays the last name and salary of employees earning more than $12,000.
+-->
+mysql> select last_name, salary from employees where salary > 12000;
++-----------+----------+
+| last_name | salary   |
++-----------+----------+
+| King      | 24000.00 |
+| Kochhar   | 17000.00 |
+| De Haan   | 17000.00 |
+| Russell   | 14000.00 |
+| Partners  | 13500.00 |
+| Hartstein | 13000.00 |
++-----------+----------+
+
+2.	Open a new SQL Worksheet. Create a report that displays the last name and department number for employee number 176.
+-->
+mysql> select e.last_name, d.department_name from employees e, departments d where  employee_id=176;
++-----------+----------------------+
+| last_name | department_name      |
++-----------+----------------------+
+| Taylor    | Administration       |
+| Taylor    | Marketing            |
+| Taylor    | Purchasing           |
+| Taylor    | Human Resources      |
+| Taylor    | Shipping             |
+| Taylor    | IT                   |
+| Taylor    | Public Relations     |
+| Taylor    | Sales                |
+| Taylor    | Executive            |
+| Taylor    | Finance              |
+| Taylor    | Accounting           |
+| Taylor    | Treasury             |
+| Taylor    | Corporate Tax        |
+| Taylor    | Control And Credit   |
+| Taylor    | Shareholder Services |
+| Taylor    | Benefits             |
+| Taylor    | Manufacturing        |
+| Taylor    | Construction         |
+| Taylor    | Contracting          |
+| Taylor    | Operations           |
+| Taylor    | IT Support           |
+| Taylor    | NOC                  |
+| Taylor    | IT Helpdesk          |
+| Taylor    | Government Sales     |
+| Taylor    | Retail Sales         |
+| Taylor    | Recruiting           |
+| Taylor    | Payroll              |
++-----------+----------------------+
+3.	The HR department needs to find high-salary and low-salary employees. Modify lab_03_01.sql to display the last name and salary for all employees whose salary is not in the range $5,000 through $12,000.
+-->
+mysql> select last_name, salary from employees where salary not between 5000 and 12000 order by salary;
++-------------+----------+
+| last_name   | salary   |
++-------------+----------+
+| Olson       |  2100.00 |
+| Markle      |  2200.00 |
+| Philtanker  |  2200.00 |
+| Landry      |  2400.00 |
+| Gee         |  2400.00 |
+| Sullivan    |  2500.00 |
+| Colmenares  |  2500.00 |
+| Vargas      |  2500.00 |
+| Marlow      |  2500.00 |
+| Patel       |  2500.00 |
+| Perkins     |  2500.00 |
+| Himuro      |  2600.00 |
+| Matos       |  2600.00 |
+| OConnell    |  2600.00 |
+| Grant       |  2600.00 |
+| Mikkilineni |  2700.00 |
+| Seo         |  2700.00 |
+| Jones       |  2800.00 |
+| Geoni       |  2800.00 |
+| Tobias      |  2800.00 |
+| Atkinson    |  2800.00 |
+| Gates       |  2900.00 |
+| Baida       |  2900.00 |
+| Rogers      |  2900.00 |
+| Cabrio      |  3000.00 |
+| Feeney      |  3000.00 |
+| Khoo        |  3100.00 |
+| Fleaur      |  3100.00 |
+| Davies      |  3100.00 |
+| Walsh       |  3100.00 |
+| Stiles      |  3200.00 |
+| Taylor      |  3200.00 |
+| Nayer       |  3200.00 |
+| McCain      |  3200.00 |
+| Mallin      |  3300.00 |
+| Bissot      |  3300.00 |
+| Dellinger   |  3400.00 |
+| Rajs        |  3500.00 |
+| Ladwig      |  3600.00 |
+| Dilly       |  3600.00 |
+| Chung       |  3800.00 |
+| Everett     |  3900.00 |
+| Bell        |  4000.00 |
+| Bull        |  4100.00 |
+| Lorentz     |  4200.00 |
+| Sarchand    |  4200.00 |
+| Whalen      |  4400.00 |
+| Pataballa   |  4800.00 |
+| Austin      |  4800.00 |
+| Hartstein   | 13000.00 |
+| Partners    | 13500.00 |
+| Russell     | 14000.00 |
+| De Haan     | 17000.00 |
+| Kochhar     | 17000.00 |
+| King        | 24000.00 |
++-------------+----------+
+55 rows in set (0.00 sec)
+
+
+
+4.	Modify above query  to list the last name and salary of employees 	who earn between
+	$5,000 and $12,000, and are in department 20 or 50. Label the columns Employee and Monthly Salary, respectively.
+-->
+mysql> select last_name as "Employee", salary as "Monthly Salary" from employees where salary not between 5000 and 12000 and (department_id=20 or department_id=50) order by salary ;
++-------------+----------------+
+| Employee    | Monthly Salary |
++-------------+----------------+
+| Olson       |        2100.00 |
+| Markle      |        2200.00 |
+| Philtanker  |        2200.00 |
+| Landry      |        2400.00 |
+| Gee         |        2400.00 |
+| Marlow      |        2500.00 |
+| Sullivan    |        2500.00 |
+| Vargas      |        2500.00 |
+| Patel       |        2500.00 |
+| Perkins     |        2500.00 |
+| Matos       |        2600.00 |
+| OConnell    |        2600.00 |
+| Grant       |        2600.00 |
+| Mikkilineni |        2700.00 |
+| Seo         |        2700.00 |
+| Atkinson    |        2800.00 |
+| Geoni       |        2800.00 |
+| Jones       |        2800.00 |
+| Rogers      |        2900.00 |
+| Gates       |        2900.00 |
+| Cabrio      |        3000.00 |
+| Feeney      |        3000.00 |
+| Fleaur      |        3100.00 |
+| Davies      |        3100.00 |
+| Walsh       |        3100.00 |
+| Nayer       |        3200.00 |
+| Stiles      |        3200.00 |
+| McCain      |        3200.00 |
+| Taylor      |        3200.00 |
+| Mallin      |        3300.00 |
+| Bissot      |        3300.00 |
+| Dellinger   |        3400.00 |
+| Rajs        |        3500.00 |
+| Dilly       |        3600.00 |
+| Ladwig      |        3600.00 |
+| Chung       |        3800.00 |
+| Everett     |        3900.00 |
+| Bell        |        4000.00 |
+| Bull        |        4100.00 |
+| Sarchand    |        4200.00 |
+| Hartstein   |       13000.00 |
++-------------+----------------+
+
+
+6.	Modify lab_03_03.sql to list the last name and salary of employees who earn between
+	$5,000 and $12,000, and are in department 20 or 50. Label the columns Employee and Monthly Salary, respectively.
+
+5.	Create a report to display the last name, job ID, and hire date for employees with the last names of Matos and Taylor. Order the query in ascending order by hire date.
+
+6.	Display the last name and department ID of all employees in departments 20 or 50 in ascending alphabetical order by last_name.
+
+
+7.	The HR department needs a report that displays the last name and hire date of all employees who were hired in 2006.
+
+8.	Create a report to display the last name and job title of all employees who do not have a manager.
+
+
+9.	Create a report to display the last name, salary, and commission for all employees who earn commissions. Sort data in descending order of salary and commissions. Use the column’s numeric position in the ORDER BY clause.
+
+
+
+10.	Display the last names of all employees where the third letter of the name is “a.”
+
+
+11.	Display the last names of all employees who have both an “a” and an “e” in their last name.
+
+
+12.	Display the last name, job, and salary for all employees whose job is that of a sales representative or a stock clerk, and whose salary is not equal to $2,500, $3,500, or $7,000.
+
+13.	Display the last name, salary, and commission for all employees whose commission amount is 20%. 
+
+
+----------------------------------------------- Aggregate Function -------------------------------------
+The HR department needs the following reports:
+14.	Find the highest, lowest, sum, and average salary of all employees. Label the columns Maximum, Minimum, Sum, and Average, respectively. Round your results to the nearest whole number.
+
+
+15.	Create a query that displays employees’ last names, and indicates the amounts of their salaries with asterisks. Each asterisk signifies a thousand dollars. Sort the data in descending order of salary. Label the column EMPLOYEES_AND_THEIR_SALARIES.
+mysql> select concat(last_name," ",repeat('*',floor(salary/1000))) as "emp and their salary" from employees;
++-------------------------------+
+| emp and their salary          |
++-------------------------------+
+| King ************************ |
+| Kochhar *****************     |
+| De Haan *****************     |
+| Hunold *********              |
+| Ernst ******                  |
+| Austin ****                   |
+| Pataballa ****                |
+| Lorentz ****                  |
+| Greenberg ************        |
+| Faviet *********              |
+| Chen ********                 |
+| Sciarra *******               |
+| Urman *******                 |
+| Popp ******                   |
+| Raphaely ***********          |
+| Khoo ***                      |
+| Baida **                      |
+| Tobias **                     |
+| Himuro **                     |
+| Colmenares **                 |
+| Weiss ********                |
+| Fripp ********                |
+| Kaufling *******              |
+| Vollman ******                |
+| Mourgos *****                 |
+| Nayer ***                     |
+| Mikkilineni **                |
+| Landry **                     |
+| Markle **                     |
+| Bissot ***                    |
+| Atkinson **                   |
+| Marlow **                     |
+| Olson **                      |
+| Mallin ***                    |
+| Rogers **                     |
+| Gee **                        |
+| Philtanker **                 |
+| Ladwig ***                    |
+| Stiles ***                    |
+| Seo **                        |
+| Patel **                      |
+| Rajs ***                      |
+| Davies ***                    |
+| Matos **                      |
+| Vargas **                     |
+| Russell **************        |
+| Partners *************        |
+| Errazuriz ************        |
+| Cambrault ***********         |
+| Zlotkey **********            |
+| Tucker **********             |
+| Bernstein *********           |
+| Hall *********                |
+| Olsen ********                |
+| Cambrault *******             |
+| Tuvault *******               |
+| King **********               |
+| Sully *********               |
+| McEwen *********              |
+| Smith ********                |
+| Doran *******                 |
+| Sewall *******                |
+| Vishney **********            |
+| Greene *********              |
+| Marvins *******               |
+| Lee ******                    |
+| Ande ******                   |
+| Banda ******                  |
+| Ozer ***********              |
+| Bloom **********              |
+| Fox *********                 |
+| Smith *******                 |
+| Bates *******                 |
+| Kumar ******                  |
+| Abel ***********              |
+| Hutton ********               |
+| Taylor ********               |
+| Livingston ********           |
+| Grant *******                 |
+| Johnson ******                |
+| Taylor ***                    |
+| Fleaur ***                    |
+| Sullivan **                   |
+| Geoni **                      |
+| Sarchand ****                 |
+| Bull ****                     |
+| Dellinger ***                 |
+| Cabrio ***                    |
+| Chung ***                     |
+| Dilly ***                     |
+| Gates **                      |
+| Perkins **                    |
+| Bell ****                     |
+| Everett ***                   |
+| McCain ***                    |
+| Jones **                      |
+| Walsh ***                     |
+| Feeney ***                    |
+| OConnell **                   |
+| Grant **                      |
+| Whalen ****                   |
+| Hartstein *************       |
+| Fay ******                    |
+| Mavris ******                 |
+| Baer **********               |
+| Higgins ************          |
+| Gietz ********                |
++-------------------------------+
+107 rows in set (0.00 sec)
+
+------------------------------------------ Joins --------------------------------------------------------
+16.	Write a query for the HR department to produce the addresses of all the departments. Use the LOCATIONS and COUNTRIES tables. Show the location ID, street address, city, state or province, and country in the output. 
+-->
+select l.location_id, l.street_address, l.city,l.state_province,c.country_name
+    -> from locations l
+    -> join countries c on l.country_id = c.country_id;
++-------------+------------------------------------------+---------------------+-------------------+--------------------------+
+| location_id | street_address                           | city                | state_province    | country_name             |
++-------------+------------------------------------------+---------------------+-------------------+--------------------------+
+|        1000 | 1297 Via Cola di Rie                     | Roma                | NULL              | Italy                    |
+|        1100 | 93091 Calle della Testa                  | Venice              | NULL              | Italy                    |
+|        1200 | 2017 Shinjuku-ku                         | Tokyo               | Tokyo Prefecture  | Japan                    |
+|        1300 | 9450 Kamiya-cho                          | Hiroshima           | NULL              | Japan                    |
+|        1400 | 2014 Jabberwocky Rd                      | Southlake           | Texas             | United States of America |
+|        1500 | 2011 Interiors Blvd                      | South San Francisco | California        | United States of America |
+|        1600 | 2007 Zagora St                           | South Brunswick     | New Jersey        | United States of America |
+|        1700 | 2004 Charade Rd                          | Seattle             | Washington        | United States of America |
+|        1800 | 147 Spadina Ave                          | Toronto             | Ontario           | Canada                   |
+|        1900 | 6092 Boxwood St                          | Whitehorse          | Yukon             | Canada                   |
+|        2000 | 40-5-12 Laogianggen                      | Beijing             | NULL              | China                    |
+|        2100 | 1298 Vileparle (E)                       | Bombay              | Maharashtra       | India                    |
+|        2200 | 12-98 Victoria Street                    | Sydney              | New South Wales   | Australia                |
+|        2300 | 198 Clementi North                       | Singapore           | NULL              | Singapore                |
+|        2400 | 8204 Arthur St                           | London              | NULL              | United Kingdom           |
+|        2500 | Magdalen Centre, The Oxford Science Park | Oxford              | Oxford            | United Kingdom           |
+|        2600 | 9702 Chester Road                        | Stretford           | Manchester        | United Kingdom           |
+|        2700 | Schwanthalerstr. 7031                    | Munich              | Bavaria           | Germany                  |
+|        2800 | Rua Frei Caneca 1360                     | Sao Paulo           | Sao Paulo         | Brazil                   |
+|        2900 | 20 Rue des Corps-Saints                  | Geneva              | Geneve            | Switzerland              |
+|        3000 | Murtenstrasse 921                        | Bern                | BE                | Switzerland              |
+|        3100 | Pieter Breughelstraat 837                | Utrecht             | Utrecht           | Netherlands              |
+|        3200 | Mariano Escobedo 9991                    | Mexico City         | Distrito Federal, | Mexico                   |
++-------------+------------------------------------------+---------------------+-------------------+--------------------------+
+
+
+
+17.	The HR department needs a report of all employees with corresponding departments. Write a query to display the last name, department number, and department name for all the employees.
+-->
+mysql> select e.last_name, e.department_id, d.department_name
+    -> from employees e
+    -> join departments d on e.department_id = d.department_id ;
++-------------+---------------+------------------+
+| last_name   | department_id | department_name  |
++-------------+---------------+------------------+
+| Whalen      |            10 | Administration   |
+| Hartstein   |            20 | Marketing        |
+| Fay         |            20 | Marketing        |
+| Raphaely    |            30 | Purchasing       |
+| Khoo        |            30 | Purchasing       |
+| Baida       |            30 | Purchasing       |
+| Tobias      |            30 | Purchasing       |
+| Himuro      |            30 | Purchasing       |
+| Colmenares  |            30 | Purchasing       |
+| Mavris      |            40 | Human Resources  |
+| Weiss       |            50 | Shipping         |
+| Fripp       |            50 | Shipping         |
+| Kaufling    |            50 | Shipping         |
+| Vollman     |            50 | Shipping         |
+| Mourgos     |            50 | Shipping         |
+| Nayer       |            50 | Shipping         |
+| Mikkilineni |            50 | Shipping         |
+| Landry      |            50 | Shipping         |
+| Markle      |            50 | Shipping         |
+| Bissot      |            50 | Shipping         |
+| Atkinson    |            50 | Shipping         |
+| Marlow      |            50 | Shipping         |
+| Olson       |            50 | Shipping         |
+| Mallin      |            50 | Shipping         |
+| Rogers      |            50 | Shipping         |
+| Gee         |            50 | Shipping         |
+| Philtanker  |            50 | Shipping         |
+| Ladwig      |            50 | Shipping         |
+| Stiles      |            50 | Shipping         |
+| Seo         |            50 | Shipping         |
+| Patel       |            50 | Shipping         |
+| Rajs        |            50 | Shipping         |
+| Davies      |            50 | Shipping         |
+| Matos       |            50 | Shipping         |
+| Vargas      |            50 | Shipping         |
+| Taylor      |            50 | Shipping         |
+| Fleaur      |            50 | Shipping         |
+| Sullivan    |            50 | Shipping         |
+| Geoni       |            50 | Shipping         |
+| Sarchand    |            50 | Shipping         |
+| Bull        |            50 | Shipping         |
+| Dellinger   |            50 | Shipping         |
+| Cabrio      |            50 | Shipping         |
+| Chung       |            50 | Shipping         |
+| Dilly       |            50 | Shipping         |
+| Gates       |            50 | Shipping         |
+| Perkins     |            50 | Shipping         |
+| Bell        |            50 | Shipping         |
+| Everett     |            50 | Shipping         |
+| McCain      |            50 | Shipping         |
+| Jones       |            50 | Shipping         |
+| Walsh       |            50 | Shipping         |
+| Feeney      |            50 | Shipping         |
+| OConnell    |            50 | Shipping         |
+| Grant       |            50 | Shipping         |
+| Hunold      |            60 | IT               |
+| Ernst       |            60 | IT               |
+| Austin      |            60 | IT               |
+| Pataballa   |            60 | IT               |
+| Lorentz     |            60 | IT               |
+| Baer        |            70 | Public Relations |
+| Russell     |            80 | Sales            |
+| Partners    |            80 | Sales            |
+| Errazuriz   |            80 | Sales            |
+| Cambrault   |            80 | Sales            |
+| Zlotkey     |            80 | Sales            |
+| Tucker      |            80 | Sales            |
+| Bernstein   |            80 | Sales            |
+| Hall        |            80 | Sales            |
+| Olsen       |            80 | Sales            |
+| Cambrault   |            80 | Sales            |
+| Tuvault     |            80 | Sales            |
+| King        |            80 | Sales            |
+| Sully       |            80 | Sales            |
+| McEwen      |            80 | Sales            |
+| Smith       |            80 | Sales            |
+| Doran       |            80 | Sales            |
+| Sewall      |            80 | Sales            |
+| Vishney     |            80 | Sales            |
+| Greene      |            80 | Sales            |
+| Marvins     |            80 | Sales            |
+| Lee         |            80 | Sales            |
+| Ande        |            80 | Sales            |
+| Banda       |            80 | Sales            |
+| Ozer        |            80 | Sales            |
+| Bloom       |            80 | Sales            |
+| Fox         |            80 | Sales            |
+| Smith       |            80 | Sales            |
+| Bates       |            80 | Sales            |
+| Kumar       |            80 | Sales            |
+| Abel        |            80 | Sales            |
+| Hutton      |            80 | Sales            |
+| Taylor      |            80 | Sales            |
+| Livingston  |            80 | Sales            |
+| Johnson     |            80 | Sales            |
+| King        |            90 | Executive        |
+| Kochhar     |            90 | Executive        |
+| De Haan     |            90 | Executive        |
+| Greenberg   |           100 | Finance          |
+| Faviet      |           100 | Finance          |
+| Chen        |           100 | Finance          |
+| Sciarra     |           100 | Finance          |
+| Urman       |           100 | Finance          |
+| Popp        |           100 | Finance          |
+| Higgins     |           110 | Accounting       |
+| Gietz       |           110 | Accounting       |
++-------------+---------------+------------------+
+
+18.	The HR department needs a report of employees in Toronto. Display the last name, job, department number, and department name for all employees who work in Toronto.
+-->
+mysql> select e.last_name, j.job_title, d.department_id, d.department_name
+    -> from employees e
+    -> join jobs j on e.job_id =j.job_id
+    -> join departments d on e.department_id = d.department_id
+    -> join locations l on d.location_id = l.location_id
+    -> where l.city = 'Toronto';
++-----------+--------------------------+---------------+-----------------+
+| last_name | job_title                | department_id | department_name |
++-----------+--------------------------+---------------+-----------------+
+| Hartstein | Marketing Manager        |            20 | Marketing       |
+| Fay       | Marketing Representative |            20 | Marketing       |
++-----------+--------------------------+---------------+-----------------+
+
+
+19.	Create a report to display employees’ last names and employee numbers along with their managers’ last names and manager numbers. Label the columns Employee, Emp#, Manager, and Mgr#, respectively. 
+
+20.	Modify above to display all employees, including King, who has no manager. Order the results by employee number.
+
+21.	Create a report for the HR department that displays employee last names, department numbers, and all employees who work in the same department(colleague) as a given employee. Give each column an appropriate label.
+-->
+select 
+    e1.last_name as "Employee",
+    e1.department_id,
+    e2.last_name as "Collegues"
+from employees e1
+join employees e2 on e1.department_id = e2.department_id 
+     and e1.employee_id != e2.employee_id
+order by 2,1,3;
+
+
+22.	The HR department needs a report on job grades and salaries. To familiarize yourself with the JOB_GRADES table, first show the structure of the JOB_GRADES table. Then create a query that displays the name, job, department name, salary, and grade for all employees.
+DESC JOB_GRADES;
+-->
+
+select 
+   e.last_name as "Name",
+   j.job_title as "Job",
+   d.department_name as "Department",
+   e.salary,
+   g.grade_level
+from employees e
+join jobs j 
+   on e.job_id = j.job_id
+left join departments d
+   on e.department_id = d.department_id
+join job_grades g
+   on e.salary between g.LOWEST_SAL and g.HIGHEST_SAL
+order by
+   e.last_name;
+
+
+23.	The HR department wants to determine the names of all employees who were hired after Davies. Create a query to display the name and hire date of any employee hired after employee Davies.
+-->
+select last_name, hire_date from employees where hire_date > (select hire_date from employees where last_name="Davies");
+
+24.	The HR department needs to find the names and hire dates of all employees who were hired before their managers, along with their managers’ names and hire dates.
+
+
+ ------------------------------------------------ Using Subqueries to Solve Queries -------------------------
+ 
+25.	The HR department needs a query the to display  the last name and hire date of any employee in the same department as the employee whose name the user supplies (excluding that employee). For example, if the user enters Zlotkey, find all employees who work with Zlotkey (excluding Zlotkey).
+-->
+select last_name,hire_date from employees 
+where department_id = (select department_id from employees where last_name="davies") and last_name != ("davies") ORDER BY last_name;
+
+
+26. Create a report that displays the employee number, last name, and salary of all employees who earn more than the average salary. Sort the results in ascending order by salary.
+-->
+select 
+   employee_id,
+   last_name,
+   salary
+from employees
+where salary > (select avg(salary) from employees)
+order by salary;
+
+
+27.	Write a query that displays the employee number and last name of all employees who work in a department with any employee whose last name contains the letter “u.” 
+-->
+select 
+   employee_id,
+   last_name
+from employees
+where last_name like "%u%";    (WHERE last_name REGEXP 'u';)
+
+28.	The HR department needs a report that displays the last name, department number, and job ID of all employees whose department location ID is 1700.
+-->
+select 
+   last_name,
+   department_id,
+   job_id
+from employees
+where department_id = any (select department_id from departments where location_id = 1700);
+
+
+29.	Create a report for HR that displays the last name and salary of every employee who reports to King.
+
+
+30.	Create a report for HR that displays the department number, last name, and job ID for every employee in the Executive department.
+
+31.	Create a report that displays a list of all employees whose salary is more than the salary of any employee from department 60.
+
+32.	Modify above query in display the employee number, last name, and salary of all employees who earn more than the average salary and who work in a department with any employee whose 
+
+------------------------------------: Using Set Operators :--------------------------
+
+33.	The HR department needs a list of department IDs for departments that do not contain the job ID ST_CLERK. Use the set operators to create this report.
+
+34.	The HR department needs a list of countries that have no departments located in them. Display the country IDs and the names of the countries. Use the set operators to create this report.
+
+35.	Produce a list of all the employees who work in departments 50 and 80. Display the employee ID, job ID, and department ID by using the set operators.
+
+36.	Create a report that lists the detail of all employees who are sales representatives and are currently working in the sales department.
+
+----------------------------------------Managing Tables by Using DML Statements-------------------------------------------
+Insert data into the MY_EMPLOYEE table.
+37.	Create a table called MY_EMPLOYEE.
+
+CREATE TABLE my_employee
+(id int CONSTRAINT my_employee_id_pk PRIMARY Key,
+ last_name VARCHAR(25),
+first_name VARCHAR(25),
+userid VARCHAR(8), salary decimal(9,2));
+
+
+
+38.	Create an INSERT statement to add the first row of data to the MY_EMPLOYEE table from the following sample data. Do not list the columns in the INSERT clause.
+
+ID	LAST_NAME	FIRST_NAME	USERID	SALARY
+1	Patel	Ralph	rpatel	895
+2	Dancs	Betty	bdancs	860
+3	Biri	Ben	bbiri	1100
+4	Newman	Chad	cnewman	750
+5	Ropeburn	Audrey	aropebur	1550
+
+pass values to id last_name,first_name and salary and generate userid as given
+
+
+----------------------------------------------------------- procedure ------------------------------------------------------
+
+1. Retrieve Employees by Manager
+Objective: Create a stored procedure that retrieves all employees under a specific manager.
+
+Input: p_manager_id IN NUMBER (Manager's employee ID)
+Output: List of employees with their details (Employee ID, First Name, Last Name, Job Title, Salary)
+Business Logic: The procedure should return employees whose manager_id matches the given p_manager_id.
+-->
+delimiter //
+create  procedure printEmpByMgr(in m int)
+begin
+select 
+    e.employee_id,
+    e.last_name,
+    j.job_title,
+    e.salary
+    from employees e
+join jobs j on e.job_id = j.job_id
+where manager_id = m;
+end//
+DELIMITER ;
+
+2. Update Employee Salary
+Objective: Create a stored procedure that updates the salary of a given employee based on their employee ID.
+Input: p_employee_id IN NUMBER, p_new_salary IN NUMBER
+Output: Success message or error message if the employee is not found.
+Business Logic: The procedure should check if the employee exists and then update their salary. If the employee doesn't exist, return an error message.
+
+3. Employee Count by Department
+Objective: Create a stored procedure that returns the count of employees in a specific department.
+Input: p_department_id IN NUMBER
+Output: Count of employees in that department.
+Business Logic: The procedure should count the employees in the specified department and return the result.
+
+
+4. Employee Job Title and Salary Information
+Objective: Create a stored procedure that retrieves employees' job titles and salary information based on a specific job title.
+Input: p_job_id IN VARCHAR2
+Output: List of employees with job title and salary.
+Business Logic: The procedure should return the employee ID, first name, last name, and salary for employees with the specified job title.
+
+
+5. Promote Employee
+Objective: Create a stored procedure to promote an employee by changing their job title and salary.
+Input: p_employee_id IN NUMBER, p_new_job_id IN VARCHAR2, p_salary_increase IN NUMBER
+Output: Success or failure message.
+Business Logic: The procedure should check if the employee exists, and then update the job_id and salary based on the provided values. Ensure salary increase is not less than a certain percentage (e.g., 10%).
+
+6. Employee Payroll Report
+Objective: Create a stored procedure that generates a payroll report for a specific date range.
+Input: p_start_date IN DATE, p_end_date IN DATE
+Output: A list of employees along with their payroll details (Employee ID, Name, Job Title, Salary, Bonus, Total Pay).
+Business Logic: The procedure should return payroll data (including salary and any bonuses) for employees who were active during the specified date range.
+
+7. Employee Tenure
+Objective: Create a stored procedure that calculates and returns the tenure (in years) for an employee based on their hire date.
+Input: p_employee_id IN NUMBER
+Output: Employee's tenure in years.
+Business Logic: The procedure should calculate the difference between the current date and the employee's hire date, returning the number of years the employee has worked.
+
+8. Department Budget Summary
+Objective: Create a stored procedure that calculates and returns the total salary expense for a department.
+Input: p_department_id IN NUMBER
+Output: Total salary expense for the department.
+Business Logic: The procedure should sum the salaries of all employees in the given department and return the total salary expense.
+
+9. Find Employees with No Manager
+Objective: Create a stored procedure that identifies employees who do not have a manager assigned.
+Input: None
+Output: List of employees without a manager (Employee ID, Name, Job Title).
+Business Logic: The procedure should return a list of employees whose manager_id is NULL.
+
+
+10. Employee Turnover Rate
+Objective: Create a stored procedure that calculates the turnover rate for a department within a given period.
+Input: p_department_id IN NUMBER, p_start_date IN DATE, p_end_date IN DATE
+Output: Turnover rate as a percentage of the total number of employees in that department who left during the specified period.
+Business Logic: The procedure should calculate the number of employees who left the department within the given date range and divide by the total number of employees in the department during that period.
+
+
+----------------------------- Function -----------------------
+1. Problem: "The finance department needs to calculate the average salary for each department to analyze salary distribution and budget planning."
+
+Function: GetAverageDepartmentSalary(dept_id INT)
+
+2. Problem: "As an HR analyst, I need to quickly retrieve the full name of an employee given their employee ID for reporting purposes."
+
+Function: GetEmployeeFullName(emp_id INT)
+
+3.Problem: "When reviewing employee information, I need to know the department name an employee belongs to, given their employee ID."
+
+Function: GetEmployeeDepartmentName(emp_id INT)
+
+4.Problem: "The HR department requires a count of employees in each department for workforce planning and resource allocation."
+
+Function: CountEmployeesInDepartment(dept_id INT)
+
+5.Problem: "The HR department needs to know the highest salary within each department for salary benchmarking and to identify potential pay disparities."
+
+Function: GetHighestSalaryInDepartment(dept_id INT)
+ 
+
+
+
+
+
+
+
+
+
+
+
+
