@@ -519,6 +519,7 @@ order by
 
 23.	The HR department wants to determine the names of all employees who were hired after Davies. Create a query to display the name and hire date of any employee hired after employee Davies.
 -->
+select last_name, hire_date from employees where hire_date > (select hire_date from employees where last_name="Davies");
 
 24.	The HR department needs to find the names and hire dates of all employees who were hired before their managers, along with their managers’ names and hire dates.
 
@@ -526,12 +527,39 @@ order by
  ------------------------------------------------ Using Subqueries to Solve Queries -------------------------
  
 25.	The HR department needs a query the to display  the last name and hire date of any employee in the same department as the employee whose name the user supplies (excluding that employee). For example, if the user enters Zlotkey, find all employees who work with Zlotkey (excluding Zlotkey).
+-->
+select last_name,hire_date from employees 
+where department_id = (select department_id from employees where last_name="davies") and last_name != ("davies") ORDER BY last_name;
+
 
 26. Create a report that displays the employee number, last name, and salary of all employees who earn more than the average salary. Sort the results in ascending order by salary.
+-->
+select 
+   employee_id,
+   last_name,
+   salary
+from employees
+where salary > (select avg(salary) from employees)
+order by salary;
+
 
 27.	Write a query that displays the employee number and last name of all employees who work in a department with any employee whose last name contains the letter “u.” 
+-->
+select 
+   employee_id,
+   last_name
+from employees
+where last_name like "%u%";    (WHERE last_name REGEXP 'u';)
 
 28.	The HR department needs a report that displays the last name, department number, and job ID of all employees whose department location ID is 1700.
+-->
+select 
+   last_name,
+   department_id,
+   job_id
+from employees
+where department_id = any (select department_id from departments where location_id = 1700);
+
 
 29.	Create a report for HR that displays the last name and salary of every employee who reports to King.
 
@@ -575,14 +603,29 @@ ID	LAST_NAME	FIRST_NAME	USERID	SALARY
 
 pass values to id last_name,first_name and salary and generate userid as given
 
-------------------------------------- procedure ----------------------
+
+----------------------------------------------------------- procedure ------------------------------------------------------
+
 1. Retrieve Employees by Manager
 Objective: Create a stored procedure that retrieves all employees under a specific manager.
 
 Input: p_manager_id IN NUMBER (Manager's employee ID)
 Output: List of employees with their details (Employee ID, First Name, Last Name, Job Title, Salary)
 Business Logic: The procedure should return employees whose manager_id matches the given p_manager_id.
-
+-->
+delimiter //
+create  procedure printEmpByMgr(in m int)
+begin
+select 
+    e.employee_id,
+    e.last_name,
+    j.job_title,
+    e.salary
+    from employees e
+join jobs j on e.job_id = j.job_id
+where manager_id = m;
+end//
+DELIMITER ;
 
 2. Update Employee Salary
 Objective: Create a stored procedure that updates the salary of a given employee based on their employee ID.
