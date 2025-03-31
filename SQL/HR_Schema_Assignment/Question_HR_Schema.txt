@@ -604,7 +604,7 @@ ID	LAST_NAME	FIRST_NAME	USERID	SALARY
 pass values to id last_name,first_name and salary and generate userid as given
 
 
------------------------------------------------------------ procedure ------------------------------------------------------
+--------------------------------------------------- procedure ------------------------------------------------
 
 1. Retrieve Employees by Manager
 Objective: Create a stored procedure that retrieves all employees under a specific manager.
@@ -632,6 +632,20 @@ Objective: Create a stored procedure that updates the salary of a given employee
 Input: p_employee_id IN NUMBER, p_new_salary IN NUMBER
 Output: Success message or error message if the employee is not found.
 Business Logic: The procedure should check if the employee exists and then update their salary. If the employee doesn't exist, return an error message.
+-->
+delimiter //
+create procedure updateSalary(in empID int, in newSal decimal(9,2))
+begin
+if empID in (Select employee_id from employees) then
+
+update employees set salary = newSal where employee_id = empId ;
+select 'Successfully updated.' as 'Message';
+else
+select 'employee not found!' as 'message';
+end if;
+end //
+delimiter ;
+
 
 3. Employee Count by Department
 Objective: Create a stored procedure that returns the count of employees in a specific department.
