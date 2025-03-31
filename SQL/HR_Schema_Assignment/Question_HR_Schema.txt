@@ -485,12 +485,40 @@ mysql> select e.last_name, j.job_title, d.department_id, d.department_name
 20.	Modify above to display all employees, including King, who has no manager. Order the results by employee number.
 
 21.	Create a report for the HR department that displays employee last names, department numbers, and all employees who work in the same department(colleague) as a given employee. Give each column an appropriate label.
+-->
+select 
+    e1.last_name as "Employee",
+    e1.department_id,
+    e2.last_name as "Collegues"
+from employees e1
+join employees e2 on e1.department_id = e2.department_id 
+     and e1.employee_id != e2.employee_id
+order by 2,1,3;
+
 
 22.	The HR department needs a report on job grades and salaries. To familiarize yourself with the JOB_GRADES table, first show the structure of the JOB_GRADES table. Then create a query that displays the name, job, department name, salary, and grade for all employees.
 DESC JOB_GRADES;
+-->
+
+select 
+   e.last_name as "Name",
+   j.job_title as "Job",
+   d.department_name as "Department",
+   e.salary,
+   g.grade_level
+from employees e
+join jobs j 
+   on e.job_id = j.job_id
+left join departments d
+   on e.department_id = d.department_id
+join job_grades g
+   on e.salary between g.LOWEST_SAL and g.HIGHEST_SAL
+order by
+   e.last_name;
 
 
 23.	The HR department wants to determine the names of all employees who were hired after Davies. Create a query to display the name and hire date of any employee hired after employee Davies.
+-->
 
 24.	The HR department needs to find the names and hire dates of all employees who were hired before their managers, along with their managers’ names and hire dates.
 
