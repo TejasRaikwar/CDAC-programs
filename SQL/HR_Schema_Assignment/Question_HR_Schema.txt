@@ -688,6 +688,47 @@ Objective: Create a stored procedure to promote an employee by changing their jo
 Input: p_employee_id IN NUMBER, p_new_job_id IN VARCHAR2, p_salary_increase IN NUMBER
 Output: Success or failure message.
 Business Logic: The procedure should check if the employee exists, and then update the job_id and salary based on the provided values. Ensure salary increase is not less than a certain percentage (e.g., 10%).
+-->
+delimiter //
+
+drop procedure if exists promoteEmp ;
+
+create procedure promoteEmp(
+    in p_employee_id int,
+    in p_new_job_id VARCHAR(50),
+    in p_salary_increase decimal(10,2)
+)
+
+begin
+
+    declare curr_sal decimal(10,2);
+    declare min_sal_inc decimal(10,2);
+    
+if p_employee_id in 
+  (select employee_id from employees where employee_id = p_employee_id)
+   then
+        select salary into curr_sal from employees where employee_id = p_employee_id;
+        set min_sal_inc = curr_sal * 0.10;
+
+   if p_salary_increase >= min_sal_inc then
+        update employees 
+        set 
+            job_id = p_new_job_id,
+            salary = (salary + p_salary_increase)
+        where 
+            employee_id = p_employee_id;
+        select "Successfully Updated" as "message" ;
+    else 
+      select concat('salary increase must be at least ',min_sal_inc) as "message";
+    end if ;
+
+else
+    select "Employee not found!" as "message" ;
+end if;
+end //
+delimiter ;
+
+>> call promoteEmp(105,"IT_PROG",520);
 
 6. Employee Payroll Report
 Objective: Create a stored procedure that generates a payroll report for a specific date range.
