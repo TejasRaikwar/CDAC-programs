@@ -1,8 +1,0 @@
-package day3;
-
-public class Main {
-	public static void main(String[] args) {
-		Employee e1 = new Employee("Tejas", 3000);
-		System.out.println(e1.printData());
-	}
-}
