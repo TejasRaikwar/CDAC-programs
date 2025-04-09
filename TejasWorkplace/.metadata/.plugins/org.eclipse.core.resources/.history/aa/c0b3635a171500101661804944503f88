@@ -1,8 +1,0 @@
-package devJava;
-
-public class Main {
-	public static void main(String[] args) {
-		nestedClasses nC = new nestedClasses();
-		System.out.println(nC.number);
-	}
-}
