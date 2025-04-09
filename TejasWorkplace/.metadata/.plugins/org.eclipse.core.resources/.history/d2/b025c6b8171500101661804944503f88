@@ -1,0 +1,8 @@
+package devJava;
+
+public class Main {
+	public static void main(String[] args) {
+		nestedClasses nC = new nestedClasses();
+		nestedClasses.innerClass ni = new nestedClasses();
+	}
+}

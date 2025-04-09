@@ -1,0 +1,47 @@
+package day3;
+
+public class Employee {
+	
+	private static long empNo = 123465;
+	private String name;
+	private double salary; 
+
+	public Employee() {
+		super();
+	}
+
+	public Employee(String name, double salary) {
+		empNo = empNo+1;
+		this.name = name;
+		this.salary = salary;
+	}
+
+	public long getEmpNo() {
+		return empNo;
+	}
+
+	public void setEmpNo(int empNo) {
+		this.empNo = empNo;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+	
+	public String printData() {
+		return "Employee [ Employee No. :" + empNo + ", Name : "+name+", salary : "+"salary ]"; 
+	}
+
+}

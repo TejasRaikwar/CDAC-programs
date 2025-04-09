@@ -1,0 +1,40 @@
+package day4.studentMenu;
+
+public class Student {
+
+	private long rollNo;
+	private String name;
+	private String course;
+
+	public Student(long rollNo, String name, String course) {
+		super();
+		this.rollNo = rollNo;
+		this.name = name;
+		this.course = course;
+	}
+
+	public long getRollNo() {
+		return rollNo;
+	}
+
+	public void setRollNo(long rollNo) {
+		this.rollNo = rollNo;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getCourse() {
+		return course;
+	}
+
+	public void setCourse(String course) {
+		this.course = course;
+	}
+
+}

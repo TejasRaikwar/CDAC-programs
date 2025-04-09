@@ -1,0 +1,153 @@
+package oops;
+
+
+import java.util.Scanner;
+
+class Item {
+    private int itemCode;
+    private String itemName;
+    private double price;
+    private int quantity;
+
+    public Item(int itemCode, String itemName, double price, int quantity) {
+        this.itemCode = itemCode;
+        this.itemName = itemName;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    // Getters
+    public int getItemCode() {
+        return itemCode;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void reduceStock(int qty) {
+        this.quantity -= qty;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "Code=" + itemCode +
+                ", Name='" + itemName + '\'' +
+                ", Price=₹" + price +
+                ", Quantity=" + quantity +
+                '}';
+    }
+}
+
+public class Billing {
+    static Item[] stock = new Item[5];
+    static Item[] cart = new Item[10];
+    static int cartCount = 0;
+    static Scanner sc = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        // Initialize stock
+        stock[0] = new Item(101, "Pen", 10.0, 50);
+        stock[1] = new Item(102, "Pencil", 5.0, 100);
+        stock[2] = new Item(103, "Notebook", 50.0, 30);
+        stock[3] = new Item(104, "Eraser", 3.0, 80);
+        stock[4] = new Item(105, "Bag", 500.0, 10);
+
+        int choice;
+        do {
+            System.out.println("\n--- Billing Menu ---");
+            System.out.println("1. Display Stock");
+            System.out.println("2. Buy Item by Code");
+            System.out.println("3. Display Bill");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    displayStock();
+                    break;
+                case 2:
+                    buyItem();
+                    break;
+                case 3:
+                    displayBill();
+                    break;
+                case 4:
+                    System.out.println("Thank you for shopping!");
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+            }
+
+        } while (choice != 4);
+    }
+
+    static void displayStock() {
+        System.out.println("\n--- Stock Available ---");
+        for (Item item : stock) {
+            System.out.println(item);
+        }
+    }
+
+    static void buyItem() {
+        System.out.print("Enter Item Code to Buy: ");
+        int code = sc.nextInt();
+
+        int stockIndex = findItemInStock(code);
+        if (stockIndex == -1) {
+            System.out.println("Item not found in stock.");
+            return;
+        }
+
+        Item stockItem = stock[stockIndex];
+
+        System.out.print("Enter Quantity: ");
+        int qty = sc.nextInt();
+
+        if (qty <= 0) {
+            System.out.println("Quantity must be more than zero.");
+            return;
+        }
+
+        if (qty > stockItem.getQuantity()) {
+            System.out.println("Not enough stock available.");
+            return;
+        }
+
+        // Reduce stock and add to cart
+        stockItem.reduceStock(qty);
+        cart[cartCount++] = new Item(stockItem.getItemCode(), stockItem.getItemName(), stockItem.getPrice(), qty);
+        System.out.println("Item added to cart.");
+    }
+
+    static void displayBill() {
+        System.out.println("\n--- Customer Bill ---");
+        double total = 0;
+        for (int i = 0; i < cartCount; i++) {
+            Item item = cart[i];
+            double itemTotal = item.getPrice() * item.getQuantity();
+            System.out.println(item + ", Subtotal: ₹" + itemTotal);
+            total += itemTotal;
+        }
+        System.out.println("Total Amount: ₹" + total);
+    }
+
+    static int findItemInStock(int code) {
+        for (int i = 0; i < stock.length; i++) {
+            if (stock[i].getItemCode() == code) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
