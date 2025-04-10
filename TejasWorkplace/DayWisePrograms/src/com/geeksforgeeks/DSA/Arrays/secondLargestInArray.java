@@ -25,6 +25,21 @@ public class secondLargestInArray {
 		}
 		return result;
 	}
+	
+	int findSecondLargestInArray(int arr[]) {
+		int n = arr.length;
+		int res = -1, largest = 0;
+		for (int i = 1; i < n; i++) {
+			if(arr[i] > arr[largest]) {
+				res = largest;
+				largest = i;
+			}else if(arr[i] != arr[largest]){
+				if(res == -1 || arr[i] > arr[res])
+					res = i;
+			}
+		}
+		return 0;
+	}
 
 	public static void main(String[] args) {
 		secondLargestInArray s = new secondLargestInArray();
