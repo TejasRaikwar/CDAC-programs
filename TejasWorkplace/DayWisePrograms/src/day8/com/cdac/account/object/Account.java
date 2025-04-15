@@ -1,8 +1,8 @@
-package com.cdac.account.object;
+package day8.com.cdac.account.object;
 
 import java.time.LocalDate;
 
-import com.cdac.account.util.UtilDate;
+import day8.com.cdac.account.util.UtilDate;
 
 public abstract class Account {
 	private int accountNumber;
@@ -19,7 +19,7 @@ public abstract class Account {
 		super();
 		this.accountNumber = generateNumber++;
 		this.accountName = accountName;
-		this.dateOfOpening = UtilDate.getDate(dateOfOpening);
+		this.dateOfOpening = day8.com.cdac.account.util.UtilDate.getDate(dateOfOpening);
 		this.balance = balance;
 	}
 
@@ -50,7 +50,7 @@ public abstract class Account {
 	 * @return the dateOfOpening
 	 */
 	public String getDateStrOfOpening() {
-		return UtilDate.getStringDate(dateOfOpening);
+		return day8.com.cdac.account.util.UtilDate.getStringDate(dateOfOpening);
 	}
 
 	public LocalDate getDateOfOpening() {
@@ -62,7 +62,7 @@ public abstract class Account {
 	 * @throws ParseException
 	 */
 	public void setDateOfOpening(String dateOfOpening) {
-		this.dateOfOpening = UtilDate.getDate(dateOfOpening);
+		this.dateOfOpening = day8.com.cdac.account.util.UtilDate.getDate(dateOfOpening);
 	}
 
 	/**

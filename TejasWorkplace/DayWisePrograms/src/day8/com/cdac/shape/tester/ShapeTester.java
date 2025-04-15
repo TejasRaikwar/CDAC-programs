@@ -1,10 +1,10 @@
-package com.cdac.shape.tester;
+package day8.com.cdac.shape.tester;
 
 import java.util.Scanner;
 
-import com.cdac.shape.objects.Circle;
-import com.cdac.shape.objects.Rectangle;
-import com.cdac.shape.objects.Shape;
+import day8.com.cdac.shape.objects.Circle;
+import day8.com.cdac.shape.objects.Rectangle;
+import day8.com.cdac.shape.objects.Shape;
 
 /*Create Shape class with abstract methods as
 1. double calculateArea();

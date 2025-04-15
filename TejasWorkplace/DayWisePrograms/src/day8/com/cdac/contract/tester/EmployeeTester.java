@@ -1,5 +1,5 @@
-package com.cdac.contract.tester;
-import  com.cdac.contract.*;
+package day8.com.cdac.contract.tester;
+import  day8.com.cdac.contract.*;
 
 public class EmployeeTester {
 	

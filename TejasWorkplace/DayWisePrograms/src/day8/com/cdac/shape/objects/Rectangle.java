@@ -1,4 +1,4 @@
-package com.cdac.shape.objects;
+package day8.com.cdac.shape.objects;
 
 public class Rectangle extends Shape {
 

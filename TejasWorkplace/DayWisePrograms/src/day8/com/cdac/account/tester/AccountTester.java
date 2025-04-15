@@ -1,11 +1,11 @@
-package com.cdac.account.tester;
+package day8.com.cdac.account.tester;
 
 import java.util.Scanner;
 
-import com.cdac.account.object.Account;
-import com.cdac.account.object.CurrentAccount;
-import com.cdac.account.object.DepositAccount;
-import com.cdac.account.object.SavingAccount;
+import day8.com.cdac.account.object.Account;
+import day8.com.cdac.account.object.CurrentAccount;
+import day8.com.cdac.account.object.DepositAccount;
+import day8.com.cdac.account.object.SavingAccount;
 
 /*1. Create Account class with accountNumber, accountName,
 dateOfOpening, balcance.
@@ -66,7 +66,7 @@ public class AccountTester {
 				String doj = sc.nextLine();
 				System.out.println("Enter the Account balance :");
 				Double balance = sc.nextDouble();
-				acc[count++] = new CurrentAccount(name, doj, balance);
+				acc[count++] = new day8.com.cdac.account.object.CurrentAccount(name, doj, balance);
 				System.out.println("Current Account Created");
 				break;
 			}
