@@ -36,13 +36,19 @@ public class Account {
 	public double getBalance() {
 		return balance;
 	}
-	
+
 	// setters with validations
-	
+
 	public void setAccName(String accName) {
-		if(accName == null || accName.trim().isEmpty()) {
-			
+		if (accName == null || accName.trim().isEmpty()) {
+			throw new IllegalArgumentException("Account Name can not be Empty");
 		}
+		this.accName = accName;
+	}
+
+	public void setBalance(double balance) {
+		if (balance <= 1000)
+			throw new IllegalArgumentException("Balance must be more than 1000");
 	}
 
 	@Override
