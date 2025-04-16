@@ -10,7 +10,7 @@ public class Account {
 	private double balance;
 
 	public Account(String accName, double balance) {
-		accNo = baseAccntNo++;
+		accNo = ++baseAccntNo;
 		dateOfOpening = LocalDate.now();
 		this.balance = balance;
 		this.accName = accName;
