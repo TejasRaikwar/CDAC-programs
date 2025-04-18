@@ -1,0 +1,196 @@
+package day13.Accounts;
+
+import java.util.Scanner;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Comparator;
+
+public class App {
+    private static final Scanner sc = new Scanner(System.in);
+    private static final CopyOnWriteArrayList<Account> accountList = new CopyOnWriteArrayList<>();
+
+    public static void main(String[] args) {
+        int choice;
+        do {
+            System.out.println(
+                    "\nMenus\n1. Accept A/C details from user\n2. Display all Accounts\n3. Search by A/C No\n4. Fund Transfer\n5. Remove A/C\n6. Apply Interest\n7. Sort by A/C No\n8. Sort by Opening Date\n9. Exit");
+            System.out.print("Enter choice: ");
+
+            try {
+                choice = Integer.parseInt(sc.nextLine());
+                
+                switch (choice) {
+                    case 1:
+                        addAccount();
+                        break;
+                    case 2:
+                        displayAll();
+                        break;
+                    case 3:
+                        searchAccount();
+                        break;
+                    case 4:
+                        fundTransfer();
+                        break;
+                    case 5:
+                        removeAccount();
+                        break;
+                    case 6:
+                        applyInterest();
+                        break;
+                    case 7:
+                        sortByAccNo();
+                        break;
+                    case 8:
+                        sortByDate();
+                        break;
+                    case 9:
+                        System.out.println("Exiting...");
+                        break;
+                    default:
+                        System.out.println("Invalid choice!");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid number!");
+                choice = 0; // Reset choice to continue loop
+                sc.nextLine(); // Clear invalid input
+            } catch (AccountNotFoundException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+
+        } while (choice != 9);
+    }
+
+    private static void searchAccount() throws AccountNotFoundException {
+        long accNo = getLongInput("Enter account number to search: ");
+        Account account = findAccount(accNo);
+        System.out.println("Account found: " + account);
+    }
+
+    private static void removeAccount() throws AccountNotFoundException {
+        long accNo = getLongInput("Enter account number to remove: ");
+        Account account = findAccount(accNo);
+        accountList.remove(account);
+        System.out.println("Account deleted successfully.");
+    }
+
+    private static void sortByDate() {
+        accountList.sort(Comparator.comparing(Account::getDateOfOpening));
+        System.out.println("Accounts sorted by opening date:");
+        displayAll();
+    }
+
+    private static void sortByAccNo() {
+        accountList.sort(Comparator.comparingLong(Account::getAccNo));
+        System.out.println("Accounts sorted by account number:");
+        displayAll();
+    }
+
+    private static void applyInterest() {
+        if (accountList.isEmpty()) {
+            System.out.println("No accounts available to apply interest.");
+            return;
+        }
+        
+        double rate = getDoubleInput("Enter interest rate (e.g., 5 for 5%): ");
+        for (Account account : accountList) {
+            double interest = account.getBalance() * (rate / 100);
+            account.setBalance(account.getBalance() + interest);
+        }
+        System.out.println("Interest applied successfully to all accounts.");
+        displayAll();
+    }
+
+    private static void fundTransfer() {
+        try {
+            long fromAccNo = getLongInput("Enter source account number: ");
+            Account fromAccount = findAccount(fromAccNo);
+            
+            long toAccNo = getLongInput("Enter destination account number: ");
+            Account toAccount = findAccount(toAccNo);
+            
+            double amount = getDoubleInput("Enter amount to transfer: ");
+            
+            if (fromAccount.getBalance() < amount) {
+                System.out.println("Insufficient funds for transfer.");
+                return;
+            }
+            
+            fromAccount.setBalance(fromAccount.getBalance() - amount);
+            toAccount.setBalance(toAccount.getBalance() + amount);
+            
+            System.out.println("Transfer successful.");
+            System.out.println("New balance for account " + fromAccNo + ": " + fromAccount.getBalance());
+            System.out.println("New balance for account " + toAccNo + ": " + toAccount.getBalance());
+            
+        } catch (AccountNotFoundException e) {
+            System.out.println("Transfer failed: " + e.getMessage());
+        }
+    }
+
+    private static void displayAll() {
+        if (accountList.isEmpty()) {
+            System.out.println("No accounts available.");
+            return;
+        }
+        System.out.println("All accounts:");
+        accountList.forEach(System.out::println);
+    }
+
+    private static void addAccount() {
+        try {
+            String name = getStringInput("Enter account holder name: ");
+            double balance = getDoubleInput("Enter account balance: ");
+
+            Account account = new Account(name, balance);
+            accountList.add(account);
+            System.out.println("Account created successfully: " + account);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Account creation failed: " + e.getMessage());
+        }
+    }
+
+    private static Account findAccount(long accNo) throws AccountNotFoundException {
+        return accountList.stream()
+                .filter(acc -> acc.getAccNo() == accNo)
+                .findFirst()
+                .orElseThrow(() -> new AccountNotFoundException("Account with number " + accNo + " not found"));
+    }
+
+    private static String getStringInput(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String input = sc.nextLine().trim();
+            if (!input.isEmpty()) {
+                return input;
+            }
+            System.out.println("Input cannot be empty. Please try again.");
+        }
+    }
+
+    private static double getDoubleInput(String prompt) {
+        while (true) {
+            try {
+                System.out.print(prompt);
+                double value = Double.parseDouble(sc.nextLine());
+                if (prompt.toLowerCase().contains("balance") && value <= 1000) {
+                    System.out.println("Balance must be greater than 1000");
+                    continue;
+                }
+                return value;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+            }
+        }
+    }
+
+    private static long getLongInput(String prompt) {
+        while (true) {
+            try {
+                System.out.print(prompt);
+                return Long.parseLong(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid account number.");
+            }
+        }
+    }
+}
