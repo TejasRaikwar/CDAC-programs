@@ -35,6 +35,10 @@ public class Account {
 	LocalDate getDateOfOpening() {
 		return dateOfOpening;
 	}
+	
+	double getAccountBalance() {
+		return balance;
+	}
 
 	// setters
 

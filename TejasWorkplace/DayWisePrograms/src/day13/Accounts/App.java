@@ -87,7 +87,12 @@ public class App {
 	}
 
 	private static void sortByDate() {
-
+		if(accountList.isEmpty()) {
+			System.out.println("No accounts available");
+			return;
+		}
+		accountList.sort(Comparator.comparing(Account::getDateOfOpening));
+		displayAll();
 	}
 
 	private static void sortByAccNo() {
@@ -100,8 +105,17 @@ public class App {
 	}
 
 	private static void applyInterest() {
-		// TODO Auto-generated method stub
-
+		if(accountList.isEmpty()) {
+			System.out.println("No accounts available");
+			return;
+		}
+		double rate = getDoubleInput("Enter interest rate : ");
+		for(Account account : accountList) {
+			double interst = account.getAccountBalance() * (rate / 100);
+			account.setBalance(interst);
+		}
+		System.out.println("Interest applied successfully to all accounts.");
+        displayAll();
 	}
 
 	private static void fundTransfer() {
