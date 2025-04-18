@@ -12,7 +12,7 @@ public class App {
 		int choice;
 		do {
 			System.out.println(
-					"\nMenus\n1. Accept A/C details from user\n2. Display all Accounts\n3. Search by A/C No\n4. Fund Transfer\n5. Remove A/C\n6. Apply Interest\n7. Sort by A/C No\n8. Sort by Opening Date\n9. Exit");
+					"\nMenus\n1. Add Account \n2. Display all Accounts\n3. Search by A/C No\n4. Fund Transfer\n5. Remove A/C\n6. Apply Interest\n7. Sort by A/C No\n8. Sort by Opening Date\n9. Exit");
 			System.out.print("Enter choice: ");
 
 			choice = getIntInput("Enter choice : ");
@@ -87,7 +87,7 @@ public class App {
 	}
 
 	private static void sortByDate() {
-		if(accountList.isEmpty()) {
+		if (accountList.isEmpty()) {
 			System.out.println("No accounts available");
 			return;
 		}
@@ -96,7 +96,7 @@ public class App {
 	}
 
 	private static void sortByAccNo() {
-		if(accountList.isEmpty()) {
+		if (accountList.isEmpty()) {
 			System.out.println("No accounts available!");
 			return;
 		}
@@ -105,22 +105,45 @@ public class App {
 	}
 
 	private static void applyInterest() {
-		if(accountList.isEmpty()) {
+		if (accountList.isEmpty()) {
 			System.out.println("No accounts available");
 			return;
 		}
 		double rate = getDoubleInput("Enter interest rate : ");
-		for(Account account : accountList) {
+		for (Account account : accountList) {
 			double interst = account.getAccountBalance() * (rate / 100);
 			account.setBalance(interst);
 		}
 		System.out.println("Interest applied successfully to all accounts.");
-        displayAll();
+		displayAll();
 	}
 
 	private static void fundTransfer() {
-		// TODO Auto-generated method stub
+		try {
+			long fromAccNo = getLongInput("Enter source Account No. : ");
+			Account fromAccount = findAccount(fromAccNo);
 
+			long toAccNo = getLongInput("Enter destination account No. : ");
+			Account toAccount = findAccount(toAccNo);
+
+			double amount = getDoubleInput("Enter amount to transfer");
+
+			if (fromAccount.getAccountBalance() < amount) {
+				System.out.println("Insufficient balance");
+			}
+
+			fromAccount.setBalance(fromAccount.getAccountBalance() - amount);
+			toAccount.setBalance(toAccount.getAccountBalance() + amount);
+			System.out.println("Transfer Successfull, and your current balance is " + fromAccount.getAccountBalance());
+		} catch (AccountNotFoundException e) {
+			System.out.println("Transfer failed!");
+		}
+
+	}
+
+	private static Account findAccount(long accNo) throws AccountNotFoundException {
+		return accountList.stream().filter(acc -> acc.getAccNo() == accNo).findFirst()
+				.orElseThrow(() -> new AccountNotFoundException("Account not found!"));
 	}
 
 	private static void displayAll() {
