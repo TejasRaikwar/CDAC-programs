@@ -1,5 +1,11 @@
 package day13.JobSeekerProgram;
 
-public class JobSeeker {
+import java.time.LocalDate;
 
+public class JobSeeker {
+//	private static long baseRegistrationId = 3214;
+//	private final long registrationId;
+//	private long phoneNumber;
+//	private LocalDate graduationDate;
+	
 }

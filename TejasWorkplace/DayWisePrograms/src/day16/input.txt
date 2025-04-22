@@ -1,0 +1,9 @@
+The Java I/O API was created in the mid-90s along with the first versions of the JDK.
+
+In 2002, with Java SE 1.4, Java NIO was released, with new classes, concepts and features. NIO stands for Non-blocking Input/Output, which summarizes the main features brought by this extension. The release of Java NIO did not really change the way your application can use Java I/O. You may feel like rewriting some of your I/O code to leverage the improvements brought by Java NIO, but the Java I/O patterns remain the same.
+
+In 2011, with Java SE 7, Java NIO2 was released, with more classes and concepts. It also brought new patterns for Java I/O. Some classes of Java NIO2 have been updated in Java SE 8, bringing even more patterns to Java I/O.
+
+This Java I/O tutorial covers the three parts of the API: Java I/O, Java NIO, and Java NIO2.
+
+ 
